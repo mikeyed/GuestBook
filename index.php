@@ -1,54 +1,104 @@
 <?php 
-//calls products listing
-include('inc/products.php'); 
-include('inc/header.php'); 
+
+if($_SERVER["REQUEST_METHOD"] == "POST") {
+	$name = trim($_POST["name"]);
+	$email = trim($_POST["email"]);
+	$comment = trim($_POST["comment"]);
+	
+	if($name == "" OR $email_address == "" OR $comment == "") {
+		echo "You must specify a value for name, email, and message.";
+		exit;
+	}
+	
+	foreach($_POST as $value ) {
+		if( stripost($value, "Content-Type:") != FALSE ) {
+			echo "There was a problem with the information you entered.";
+			exit;	
+		}
+	}
+	
+	if($_POST["address"] != "") {
+			echo "Your form submission has an error.";
+			exit;
+	}	
+	
+	
+}
 ?>
 
-	<div id="content">
+<?php 
+$pageTitle = "Guest Book";
+$section = "guest_book";
 
-		<div class="section banner">
+include('inc/guest_record.php'); 
+include('inc/header.php'); ?>
 
-			<div class="wrapper">
+<div class="wrapper article_back">
+		
+	<div class="section page container">
 
-				<img class="hero" src="img/mike-the-frog.png" alt="Mike the Frog says:">
-				<div class="button">
-					<a href="#">
-						<h2>Hey, I&rsquo;m Mike!</h2>
-						<p>Check Out My Shirts</p>
-					</a>
-				</div>
-			</div>
+	
+	<?PHP
+	if(isset($_GET["Status"]) AND $_GET["Status"] == "thanks") { ?>
+	
+	<p>Thanks for visiting our site. We'll be watching you! ;)</p>
 
-		</div>
-
-		<div class="section shirts latest">
-
-			<div class="wrapper">
-
-				<h2>Mike&rsquo;s Latest Shirts</h2>
-
-				<ul class="products">
-					
-					<?php 
-					$total_products = count($products);
-					$position = 0;
-					$list_view_html = "";
-					foreach($products as $product_id => $product) { 
-						$position = $position + 1;
-						if ($total_products - $position < 4) {
-							$list_view_html = get_list_view_html($product_id,$product) . $list_view_html;
-						}
-					} 
-					
-					echo $list_view_html;
-					?>
-					
-				</ul>
-
-			</div>
-
-		</div>
-
+	
+	<?php } else {?>
+	
+	<section class="persistent">
+	<form method="post" action="entry-add.php">
+		<table>
+			<tr>
+				<th>
+					<label for="name">Name</label>
+				</th>
+				<td>
+					<input type="text" name="name" id="name">
+				</td>
+			</tr>
+			<tr>
+				<th>
+					<label for="email">Email</label>
+				</th>
+				<td>
+					<input type="text" name="email" id="email">
+				</td>
+			</tr>
+			<tr>
+				<th>
+					<label for="comment">Comment</label>
+				</th>
+				<td>
+					<textarea name="comment" id="comment"></textarea>
+				</td>
+			</tr>
+			<tr style="display:none;">
+				<th>
+					<label for="address">Address</label>
+				</th>
+				<td>
+					<input type="text" name="address" id="address">
+					<p> Human! Leave this blank!</p>
+				</td>
+			</tr>
+		</table>
+		<input  type="submit" value="Add Your Name">
+	</form>
+	</section>
+	
+	<?php } ?>
+	
+	<article class="scroll">
+		<ul class="guests">
+			<?php 
+			foreach($entries as $entry_id => $entry) { 
+				echo get_list_view_html( $entry_id, $entry );
+			} 
+			?>
+		</ul>
+	</article>
 	</div>
+</div>
 
 <?php include('inc/footer.php'); ?>
