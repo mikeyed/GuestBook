@@ -1,11 +1,11 @@
-<?php 
+<?php
+//Connect to Guest database
+require("inc/guest_record.php");
 
-$name = $_POST["name"];
-$email = $_POST["email"];
-$comment = $_POST["message"];
+//Define posted variables by user
+add_entry($_POST["name"], $_POST["email"], $_POST["comment"]);
 
-//TODO: Send Email
-
+//Return to thank you page
 header("Location: visitor-thanks.php");
 
 ?>
