@@ -3,6 +3,8 @@ $pageTitle = "thank_you";
 $section = "thanks";
 
 include('inc/guest_record.php'); 
+$entries = get_all_entries(); 
+
 include('inc/header.php'); ?>
 
 <div class="wrapper article_back">
@@ -15,11 +17,11 @@ include('inc/header.php'); ?>
 		<p>Thank you for signing our guest book.</p>
 	</section>
 	
-	<article>
-		<ul class="guests">
+	<article class="scroll">
+		<ul class="guest_list">
 			<?php 
-			foreach($entries as $entry_id => $entry) { 
-				echo get_list_view_html( $entry_id, $entry );
+			foreach($entries as $entry) { 
+				echo get_list_view_html( $entry );
 			} 
 			?>
 		</ul>
