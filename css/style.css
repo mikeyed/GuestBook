@@ -460,7 +460,7 @@ header:after {
 
 header .branding-title {
 	float: left; 	
-	font: 0/0 serif; 
+	font: 0em/0em serif; 
 	text-shadow: none; 
 	color: transparent; 
 	width:190px;
@@ -489,7 +489,7 @@ header .nav li {
 	margin: 0; 
 	list-style: none;
 	
-	text-indent:-9999;
+	text-indent:-9999px;
 	}
 	
 header .nav li a {
@@ -787,10 +787,8 @@ article {
 section {
 	width: 37%;
 	float:left;
-	margin:0 0z 0 .1em;
+	margin:0 0 0 .1em;
 	text-align: center;
 	}
 
 }
-
-
