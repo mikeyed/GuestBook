@@ -1,12 +1,12 @@
 <?php 
-
+/* reviews form submission for errors, omissions, or bots */
 if($_SERVER["REQUEST_METHOD"] == "POST") {
 	$name = trim($_POST["name"]);
 	$email = trim($_POST["email"]);
 	$comment = trim($_POST["comment"]);
 	
-	if($name == "" OR $email_address == "" OR $comment == "") {
-		echo "You must specify a value for name, email, and message.";
+	if($name == "" OR $email == "" OR $comment == "") {
+		echo "You must specify a value for name, email, and comment.";
 		exit;
 	}
 	
@@ -20,32 +20,31 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
 	if($_POST["address"] != "") {
 			echo "Your form submission has an error.";
 			exit;
-	}	
-	
-	
+	}		
 }
-?>
 
-<?php 
+/* Controller code to retrieve data depending on ID provided */ 
+if (isset($_GET["id"])) {
+	$entry_id = intval($_GET["id"]);
+	$entry = get_guest_single($entry_id);
+	exit();
+}
+
+/* Grabs guest entry data (model) */
+include('inc/guest_record.php');
+$entries = get_all_entries(); 
+
+/* Page view definitions w/ header include (view)*/
 $pageTitle = "Guest Book";
 $section = "guest_book";
 
-include('inc/guest_record.php'); 
-include('inc/header.php'); ?>
+include('inc/header.php'); 
+?>
 
 <div class="wrapper article_back">
-		
 	<div class="section page container">
-
 	
-	<?PHP
-	if(isset($_GET["Status"]) AND $_GET["Status"] == "thanks") { ?>
-	
-	<p>Thanks for visiting our site. We'll be watching you! ;)</p>
-
-	
-	<?php } else {?>
-	
+	<!-- Form submission section -->
 	<section class="persistent">
 	<form method="post" action="entry-add.php">
 		<table>
@@ -87,17 +86,18 @@ include('inc/header.php'); ?>
 	</form>
 	</section>
 	
-	<?php } ?>
 	
+	<!-- Past guest entry display scroll portion -->
 	<article class="scroll">
-		<ul class="guests">
+		<ul class="guest_list">
 			<?php 
-			foreach($entries as $entry_id => $entry) { 
-				echo get_list_view_html( $entry_id, $entry );
+			foreach($entries as $entry) { 
+				echo get_list_view_html( $entry );
 			} 
 			?>
 		</ul>
 	</article>
+	
 	</div>
 </div>
 
