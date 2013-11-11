@@ -79,7 +79,7 @@ function get_all_entries() {
 	require("inc/guest_dbconnect.php");
 	
 	try {
-		$results = $db->query("SELECT id, name, email, comment FROM GuestBook ORDER BY id");
+		$results = $db->query("SELECT id, name, email, comment FROM GuestBook ORDER BY id DESC");
 	} catch (Exception $e) {
 		echo "Could not retrieve the guest list, the party is over.";
 		exit;
