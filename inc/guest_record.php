@@ -33,23 +33,23 @@ function add_entry($name, $email, $comment) {
 }
 
 /* single guest display function, binds to entry 'id' unique variable
-function get_guest_single($id) {
-	require(ROOT_PATH . "inc/guest_dbconnect.php");
+ */
+function get_guest_single($entry_id) {
+	require("inc/guest_dbconnect.php");
 	
 	try { 
-		$results = $db->prepare("SELECT name, email, comment FROM GuestBook WHERE id = ?");
-		$results->bindParam(1,$id)
-		$results->execute();
+		$result = $db->prepare("SELECT id, name, email, comment FROM GuestBook WHERE id = :id");
+		$result->bindParam(':id',$entry_id);
+		$result->execute();
 	} catch (Exception $e) {
 			echo "We are having trouble displaying this guest's information.";
 			exit;	
 	}
 
-	$guest = $results->fetch(PDO::FETCH_ASSOC);
+	$product = $result->fetch(PDO::FETCH_ASSOC);
 		
-	return $guest;
+	return $product;
 }
- */
  
  
 /* Grabs entries from database as 'entries' variable */
@@ -86,7 +86,7 @@ function get_all_entries() {
 	}
 	
 	$entries = $results->fetchAll(PDO::FETCH_ASSOC);
-
+	
 	return $entries;
 
 }
