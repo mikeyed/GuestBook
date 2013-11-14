@@ -1,23 +1,18 @@
 <?php 
-//calls guest listing
+/* Grabs guest entry data (model) */
 include('inc/guest_record.php');
 
-if (isset($_GET["id"])) {
-	//from index.php call, assigns entry's id to page variable
-	$entry_id = $_GET["id"];
-	if (isset($entries[$entry_id])) {
-	$entry = $entries[$entry_id];
-	}
-}
+$entry_single = get_guest_single($_GET["id"]);
 
-if (!isset($entry_id)) {
+
+if (empty($entry_single)) {
 	header("Location: index.php");
 	exit();
 }
 
 //page attributes, section>>title
 $section = "guest";
-$pageTitle = $entry["name"];
+$pageTitle = $entry_single["name"];
 
 //header template file
 include('inc/header.php'); 
@@ -28,16 +23,16 @@ include('inc/header.php');
 		
 		<!-- trail back to Guest Book -->
 		<section class="persistent">
-			<a href="index.php">Guest Book</a> &gt; <?php echo $name; ?>
+			<a href="index.php">Guest Book</a> &gt; <?php echo  $entry_single["name"]; ?>
 		</section>
 		
 		<!-- Main Guest Detail Display -->
-		<article class="scroll">
-			<h1><?php echo $entries["name"]; ?></h1>
+		<article class="scroll single">	
+			<h1><?php echo $entry_single["name"]; ?></h1>
 			
-			<h2><?php echo $entry["email"]; ?></h1>
+			<h2><?php echo $entry_single["email"]; ?></h1>
 			
-			<p><?php echo $entry["comment"]; ?></p>
+			<p><?php echo $entry_single["comment"]; ?></p>
 		</article>
 			
 	</div>
