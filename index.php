@@ -1,38 +1,16 @@
 <?php 
-/* reviews form submission for errors, omissions, or bots */
-if($_SERVER["REQUEST_METHOD"] == "POST") {
-	$name = trim($_POST["name"]);
-	$email = trim($_POST["email"]);
-	$comment = trim($_POST["comment"]);
-	
-	if($name == "" OR $email == "" OR $comment == "") {
-		echo "You must specify a value for name, email, and comment.";
-		exit;
-	}
-	
-	foreach($_POST as $value ) {
-		if( stripost($value, "Content-Type:") != FALSE ) {
-			echo "There was a problem with the information you entered.";
-			exit;	
-		}
-	}
-	
-	if($_POST["address"] != "") {
-			echo "Your form submission has an error.";
-			exit;
-	}		
-}
+
 
 /* Controller code to retrieve data depending on ID provided */ 
 if (isset($_GET["id"])) {
 	$entry_id = intval($_GET["id"]);
-	$entry = get_guest_single($entry_id);
 	exit();
 }
 
 /* Grabs guest entry data (model) */
 include('inc/guest_record.php');
 $entries = get_all_entries(); 
+$err_message = $_REQUEST['err_message'];
 
 /* Page view definitions w/ header include (view)*/
 $pageTitle = "Guest Book";
@@ -45,7 +23,15 @@ include('inc/header.php');
 	<div class="section page container">
 	
 	<!-- Form submission section -->
-	<section class="persistent">
+	<section class="persistent"> 
+		
+	<?php 
+		if(!isset($err_message)) {
+			echo '<p>Sign our guest book please.</p>';
+		} else {
+			echo'<p>' . $_GET["err_message"] . '</p>';
+		}
+	?>
 	<form method="post" action="entry-add.php">
 		<table>
 			<tr>
