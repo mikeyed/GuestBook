@@ -26,17 +26,13 @@ function clean_val($value) {
 function add_entry($name, $email, $comment) {
 	require("inc/guest_dbconnect.php");
 	
-	$name_clean = clean_val($name);
-	$email_clean = clean_val($email);
-	$comment_clean = clean_val($comment);
-	
 	try { 
 		//State table and variables being inserted
 		$stmt = $db->prepare("INSERT INTO GuestBook (name, email, comment) VALUES (:name, :email, :comment)");
 		//Bind those variables inserted with the ones posted 
-		$stmt->bindParam(':name', $name_clean);
-		$stmt->bindParam(':email', $email_clean);
-		$stmt->bindParam(':comment', $comment_clean);
+		$stmt->bindParam(':name', $name);
+		$stmt->bindParam(':email', $email);
+		$stmt->bindParam(':comment', $comment);
 		//Execute the prepared statement
 		$stmt->execute();
 	} catch (Exception $e) {
