@@ -16,8 +16,8 @@ function get_list_view_html($entry) {
 
 function clean_val($value) {
 	$value_clean = trim($value);
-	$value_clean = stripslashes($value);
-	$value_clean = htmlspecialchars($value);
+	$value_clean = stripslashes($value_clean);
+	$value_clean = htmlspecialchars($value_clean);
 	
 	return $value_clean;
 }
