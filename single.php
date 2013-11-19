@@ -2,7 +2,8 @@
 /* Grabs guest entry data (model) */
 include('inc/guest_record.php');
 
-$entry_single = get_guest_single($_GET["id"]);
+$entry = new Guest();
+$entry_single = $entry->get_single($_GET["id"]);
 
 
 if (empty($entry_single)) {
@@ -12,6 +13,7 @@ if (empty($entry_single)) {
 
 //page attributes, section>>title
 $section = "guest";
+//$pageTitle = $entry_single->name;
 $pageTitle = $entry_single["name"];
 
 //header template file
@@ -23,7 +25,7 @@ include('inc/header.php');
 		
 		<!-- trail back to Guest Book -->
 		<section class="persistent">
-			<a href="index.php">Guest Book</a> &gt; <?php echo  $entry_single["name"]; ?>
+			<a href="index.php">Guest Book</a> | <?php echo $entry_single["name"] ?>
 		</section>
 		
 		<!-- Main Guest Detail Display -->
