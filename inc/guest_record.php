@@ -127,7 +127,7 @@ function validate_entry($name, $email, $comment) {
 		$email = trim($_POST["email"]);
 		$comment = trim($_POST["comment"]);
 		
-		//
+		//empty values submitted will return an error
 		if($name == "" OR $email == "" OR $comment == "") {
 			$err_message = "You must specify a value for name, email, and comment.";
 			return $err_message;
@@ -142,7 +142,7 @@ function validate_entry($name, $email, $comment) {
 } 
 
 /* cuts text passed through to max character count adding a link using the id passed through */
-function make_excerpt($text, $max_char, $id) 
+function make_excerpt($text, $max_char, $id) {
 	if (strlen($text) > $max_char) {
 		$text = substr($text, 0, $max_char);
 		$text = substr($text,0,strrpos($text," "));
