@@ -408,7 +408,9 @@ a:active {
 	color: #1F674D;
 	}
 	
-	
+textarea {
+    resize: none;
+}
 
 /* 
  * 
@@ -538,14 +540,6 @@ article.single {
 	min-height:20em;
 	}
 	
-.section.page h1 {
-    font-size: 1.5em; 
-    text-align: center;
-    text-transform: uppercase;
-    line-height: 1.6;
-    font-weight: normal;    
-	}
-
 ul.guest_list {
 	margin: 0 0 0 0; 
 	padding: 0; 
@@ -566,11 +560,14 @@ ul.guest_list li {
 	}
 
 ul.guest_list li a {
-    display: block;
-    padding: 2em .8em 0 .8em;
     text-decoration: none;
     color: #555;
 	}
+
+ul.guest_list li a.contact {
+    display: block;
+    padding: 2em .8em 0 .8em;
+}
 
 ul.guest_list li a:hover {
     color: #999;
