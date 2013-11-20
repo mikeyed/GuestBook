@@ -9,6 +9,7 @@
 	public function add($name, $email, $comment) {
 		require("inc/guest_dbconnect.php");
 		
+		//entry's status for being entered into the database
 		$entry_state = "";
 		
 		try { 
@@ -52,12 +53,16 @@
  
 /* formats text for entry display */
 function get_list_view_html($entry) {
+	//uses make_excerpt function to cut comments displayed to 15 characters
+	$excerpt = make_excerpt($entry["comment"], 15, $entry["id"]);
+	
+	//output for each entry passed through
 	$output = "";
 	
 	$output = $output . '<li>';
-	$output = $output . '<p><a href="single.php?id=' . $entry["id"] . '">' . $entry["name"] . ', ';
+	$output = $output . '<p><a href="single.php?id=' . $entry["id"] . '" class="contact">' . $entry["name"] . ', ';
 	$output = $output . $entry["email"] . '</a></p>';
-	$output = $output . '<p>' . $entry["comment"] . '</p>';
+	$output = $output . '<p>' . $excerpt . '</p>';
 	$output = $output . '</li>'; 
 	 
  	return $output;
@@ -110,29 +115,41 @@ function clean_val($value) {
 	return $value_clean;
 }
 
+
+/* reviews form submission for errors, omissions, or bots */
 function validate_entry($name, $email, $comment) {
 	// define variables and set to empty values
 	$name = $email = $comment = "";
 			
-
-	/* reviews form submission for errors, omissions, or bots */
 	if($_SERVER["REQUEST_METHOD"] == "POST") {
 		
 		$name =  trim($_POST["name"]);
 		$email = trim($_POST["email"]);
 		$comment = trim($_POST["comment"]);
 		
+		//
 		if($name == "" OR $email == "" OR $comment == "") {
 			$err_message = "You must specify a value for name, email, and comment.";
 			return $err_message;
 		}
 		
+		// hidden form value, if filled will send back an error
 		if($_POST["address"] != "") {
 				$err_message = "Your form submission has an error.";
 				return $err_message;
 		}		
 	}
 } 
- 
+
+/* cuts text passed through to max character count adding a link using the id passed through */
+function make_excerpt($text, $max_char, $id) 
+	if (strlen($text) > $max_char) {
+		$text = substr($text, 0, $max_char);
+		$text = substr($text,0,strrpos($text," "));
+		$etc = " <a href='single.php?id=" . $id . "'>...</a>"; 
+		$text = $text.$etc;
+	}
+	return $text;
+}
 
 ?>
