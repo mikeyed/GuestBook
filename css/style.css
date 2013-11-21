@@ -446,6 +446,7 @@ section {
  
 header {
 	border-bottom: 1px dotted #96092b;
+	height: 5.75em;
 	}
 	
 .header_back {
@@ -466,9 +467,9 @@ header .branding-title {
 	text-shadow: none; 
 	color: transparent; 
 	width:190px;
-	height:60px;
+	height:92px;
 	background:url(../img/redhead_design.png) 0 14px no-repeat;
-	padding: 18px 0;
+	padding: 1.125em 0;
 	}
 	
 header .branding-title a {
@@ -478,10 +479,8 @@ header .branding-title a {
 	}
 	
 header .nav {
-	float: right; 
-	top: 4.2em; 
-	right: 0; 
-	margin: 0; 
+	float: right;
+	margin: 4.2em  0 0 0; 
 	position: relative; 
 	z-index: 99999999;
 	}
@@ -603,18 +602,18 @@ form tr {
 	
 form table {
 	width: 100%; 
-	margin-bottom: 16px;
+	margin-bottom: 1em;
 	}
 
 form th {
-    width: 85px;
-    padding: 8px;
-    border-right: 1px solid #CCC;
+    width: 5.3em;
+    padding: .5em;
     vertical-align: middle;
+    border-right: 1px solid #CCC;
 	}
 	
 form td {
-    padding: 15px 15px;
+    padding: 1em 1em;
 	}
 	
 form td select,
@@ -625,13 +624,13 @@ form td textarea {
 
 form input[type="submit"] {
     width: 100%;
-    padding: 14px;
+    padding: .875em;
     background: #ba0c38;
     color: #FFF;
     border: 1px solid #790421;
     border-radius: 5px;    
     -webkit-border-radius: 5px;
-    font-size: 14px;
+    font-size: .875em;
     text-align: center;
     text-transform: uppercase;
 	-o-transition:color .3s ease-out, background .3s ease-in;
@@ -683,16 +682,16 @@ form input[type="submit"]:focus {
 
 .footer p {
 	margin: 0; 
-	padding-right: 3px;
+	padding-right: .1875em;
 	text-align: right; 
 	}
 
 .footer a { 
-	margin: 0 10px;
+	margin: 0 .625em;
 	}
 	
 .footer li:first-child a {
-	margin-left: 4px;
+	margin-left: .25em;
 	}
 
 /*
@@ -702,9 +701,9 @@ form input[type="submit"]:focus {
  */
 
 .breadcrumb {
-    padding: 14px 0 48px;
+    padding: .875em 0 3em;
     font-family: Helvetica, Arial, sans-serif;
-    font-size: 14px;
+    font-size: .875em;
     font-weight: normal;
 	}
 
