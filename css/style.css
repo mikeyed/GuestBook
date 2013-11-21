@@ -401,7 +401,6 @@ a {
 	color: #09895C;
 	}
 	
-
 a:hover, 
 a:active {
 	text-decoration: underline;
@@ -410,7 +409,7 @@ a:active {
 	
 textarea {
     resize: none;
-}
+	}
 
 /* 
  * 
@@ -421,15 +420,18 @@ textarea {
 	width:100%;
 	float:left;
 	}
+	
 .container {
 	max-width:60em;
 	margin:0 auto;
-	} 
+	}
+	 
 article {
 	width: 38%;
 	float:right;
 	min-height:15em;
 	}
+	
 section {
 	width: 45%;
 	float:left;
@@ -442,14 +444,12 @@ section {
  * 
  */
  
-
+header {
+	border-bottom: 1px dotted #96092b;
+	}
 	
 .header_back {
 	background: #FFFFFF;
-	}
-	
-header {
-	border-bottom: 1px dotted #96092b;
 	}
 	
 header:after {
@@ -490,7 +490,6 @@ header .nav li {
 	display: inline-block; 
 	margin: 0; 
 	list-style: none;
-	
 	text-indent:-9999px;
 	}
 	
@@ -525,15 +524,15 @@ header .nav li.think a {
  * 
  */
  
+ article {
+	text-align:center;
+	}
+	
 .article_back {
 	background: #FFFFFF;
 	margin:4em 0 0 0;
 	padding:2em 0 0 0;
 	}
-	
-article.single {
-	text-align:center;
-}
 	
 .section.page {
 	padding: 2em 0; 
@@ -546,17 +545,15 @@ ul.guest_list {
 	}
 
 ul.guest_list li {
-    list-style: none;
-    border: 1px solid #e3e1e0;
-    -webkit-border-radius: 2px;
-    border-radius: 2px;
     width:100%;
     min-height:10em;
     margin: 0 0 2em 0;
-    text-align: center;
-    text-transform: lowercase;
     background: #f0eeed;
-	
+    border: 1px solid #e3e1e0;
+    border-radius: 2px;
+    -webkit-border-radius: 2px;
+    list-style: none;
+    text-transform: lowercase;
 	}
 
 ul.guest_list li a {
@@ -564,35 +561,30 @@ ul.guest_list li a {
     color: #555;
 	}
 
-ul.guest_list li a.contact {
-    display: block;
-    padding: 2em .8em 0 .8em;
-}
-
 ul.guest_list li a:hover {
-    color: #999;
+	color: #999;
 	}
 	
 ul.guest_list li p {
-    text-transform: uppercase;
+    color:#03593B;
     font-size: .8em;
     min-height:1.5em;
-    color:#03593B;
+    text-transform: uppercase;
 	}
 	
 ul.guest_list li p + p {
-    padding: 0 .25em;
-    width: auto;
-    font-weight:bold;
-    font-size: 2em;
-    min-height:1.8em;
 	color: #1F674D;
+    width: auto;
+    min-height:1.8em;
+    padding: 0 .25em;
+    font-size: 2em;
+    font-weight:bold;
 	}
 
 ul.guest_list li p + p:before, 
 ul.guest_list li p + p:after {
-    content: " \" ";
     font-size:1.1em;
+    content: "\"";
 	}
 
 /*
@@ -603,6 +595,7 @@ ul.guest_list li p + p:after {
  
 form {width: 100%;}
 
+/* submodule definitions */
 form tr {
     border: 1px solid #CCC;
     background: #f4f3f2;
@@ -615,9 +608,9 @@ form table {
 
 form th {
     width: 85px;
+    padding: 8px;
     border-right: 1px solid #CCC;
     vertical-align: middle;
-    padding: 8px;
 	}
 	
 form td {
@@ -632,15 +625,15 @@ form td textarea {
 
 form input[type="submit"] {
     width: 100%;
-    text-align: center;
-    border: 1px solid #790421;
+    padding: 14px;
     background: #ba0c38;
     color: #FFF;
-    -webkit-border-radius: 5px;
+    border: 1px solid #790421;
     border-radius: 5px;    
+    -webkit-border-radius: 5px;
     font-size: 14px;
+    text-align: center;
     text-transform: uppercase;
-    padding: 14px;
 	-o-transition:color .3s ease-out, background .3s ease-in;
 	-ms-transition:color .3s ease-out, background .3s ease-in;
 	-moz-transition:color .3s ease-out, background .3s ease-in;
@@ -671,16 +664,16 @@ form input[type="submit"]:focus {
 	}
 
 .footer ul {
+	float: left;
 	margin: 0; 
 	padding: 0; 
-	float: left;
 	}
 
 .footer ul li {
+    display: inline-block;
     margin: 0;
     padding: 0;
     list-style: none;
-    display: inline-block;
     text-transform: lowercase;
 	}
 
@@ -690,8 +683,8 @@ form input[type="submit"]:focus {
 
 .footer p {
 	margin: 0; 
-	text-align: right; 
 	padding-right: 3px;
+	text-align: right; 
 	}
 
 .footer a { 
@@ -709,10 +702,10 @@ form input[type="submit"]:focus {
  */
 
 .breadcrumb {
+    padding: 14px 0 48px;
     font-family: Helvetica, Arial, sans-serif;
     font-size: 14px;
     font-weight: normal;
-    padding: 14px 0 48px;
 	}
 
 
@@ -777,8 +770,8 @@ and (min-width : 641px) {
 
 
 article {
-	width: 45%;
 	float:right;
+	width: 45%;
 	min-height:15em;
 	margin:0 1em 0 0;
 	}
