@@ -5,8 +5,14 @@
 	public $name;
 	public $email;
 	public $comment;
+	
+	public function __construct($name, $email, $comment) {
+		$this->name = $name;
+		$this->name = $email;
+		$this->name = $comment;
+	}
 	 
-	public function add($name, $email, $comment) {
+	public static function add($name, $email, $comment) {
 		require("inc/guest_dbconnect.php");
 		
 		//entry's status for being entered into the database
@@ -49,8 +55,75 @@
 			
 		return $entry;
 	}
+	
+	/* reviews form submission for errors, omissions, or bots */
+	function validate_entry($name, $email, $comment) {
+		// define variables and set to empty values
+		$name = $email = $comment = "";
+				
+		if($_SERVER["REQUEST_METHOD"] == "POST") {
+			
+			$name =  trim($_POST["name"]);
+			$email = trim($_POST["email"]);
+			$comment = trim($_POST["comment"]);
+			
+			//empty values submitted will return an error
+			if($name == "" OR $email == "" OR $comment == "") {
+				$err_message = "You must specify a value for name, email, and comment.";
+				return $err_message;
+			}
+			
+			// hidden form value, if filled will send back an error
+			if($_POST["address"] != "") {
+					$err_message = "Your form submission has an error.";
+					return $err_message;
+			}		
+		}
+	} 
+	
+	/* Grabs entries from database as 'entries' variable */
+	function get_all_entries() {
+	/*
+		$entries = array();
+		$entries[101] = array(
+			"name" => "Michael Davidson",
+			"email" => "me@mikeyed.com",
+			"comment" => "First!"
+		);
+
+		$entries[102] = array(
+			"name" => "Brian Boitano",
+			"email" => "whatwould@brianboitano.do",
+			"comment" => "He'd kick an ass or two, cause that's what boitano'd do."
+		);
+
+
+		$entries[103] = array(
+			"name" => "Khal Drogo",
+			"email" => "moonstars@khal.eesi",
+			"comment" => "Shadowland, b$@!#!"
+		);
+		*/
+
+		require("inc/guest_dbconnect.php");
+		
+		try {
+			$results = $db->query("SELECT id, name, email, comment FROM GuestBook ORDER BY id DESC");
+		} catch (Exception $e) {
+			echo "Could not retrieve the guest list, the party is over.";
+			exit;
+		}
+		
+		$entries = $results->fetchAll(PDO::FETCH_ASSOC);
+		
+		return $entries;
+	}
 }
- 
+
+function count_return() {
+		
+}
+
 /* formats text for entry display */
 function get_list_view_html($entry) {
 	//uses make_excerpt function to cut comments displayed to 15 characters
@@ -68,43 +141,9 @@ function get_list_view_html($entry) {
  	return $output;
 }
 
-/* Grabs entries from database as 'entries' variable */
-function get_all_entries() {
-/*
-	$entries = array();
-	$entries[101] = array(
-		"name" => "Michael Davidson",
-		"email" => "me@mikeyed.com",
-		"comment" => "First!"
-	);
-
-	$entries[102] = array(
-		"name" => "Brian Boitano",
-		"email" => "whatwould@brianboitano.do",
-		"comment" => "He'd kick an ass or two, cause that's what boitano'd do."
-	);
 
 
-	$entries[103] = array(
-		"name" => "Khal Drogo",
-		"email" => "moonstars@khal.eesi",
-		"comment" => "Shadowland, b$@!#!"
-	);
-	*/
 
-	require("inc/guest_dbconnect.php");
-	
-	try {
-		$results = $db->query("SELECT id, name, email, comment FROM GuestBook ORDER BY id DESC");
-	} catch (Exception $e) {
-		echo "Could not retrieve the guest list, the party is over.";
-		exit;
-	}
-	
-	$entries = $results->fetchAll(PDO::FETCH_ASSOC);
-	
-	return $entries;
-}
 
 /* cleans form submission values */
 function clean_val($value) {
@@ -146,7 +185,7 @@ function make_excerpt($text, $max_char, $id) {
 	if (strlen($text) > $max_char) {
 		$text = substr($text, 0, $max_char);
 		$text = substr($text,0,strrpos($text," "));
-		$etc = " <a href='single.php?id=" . $id . "'>...</a>"; 
+		$etc = " <a href='single.php?id=" . $id . "'>(...)</a>"; 
 		$text = $text.$etc;
 	}
 	return $text;
