@@ -2,8 +2,10 @@
 $pageTitle = "thank_you";
 $section = "thanks";
 
-include('inc/guest_record.php'); 
-$entries = get_all_entries(); 
+include('inc/guest_record.php');	
+$entry = new Guest();
+$entries = Guest::get_all_entries(); 
+$err_message = $_REQUEST['err_message'];
 
 include('inc/header.php'); ?>
 
