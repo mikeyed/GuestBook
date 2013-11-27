@@ -1,5 +1,7 @@
 <?php 
+//session_start();
 
+//$err_message = $_SESSION["err_message"];
 
 /* Controller code to retrieve data depending on ID provided */ 
 if (isset($_GET["id"])) {
@@ -8,8 +10,9 @@ if (isset($_GET["id"])) {
 }
 
 /* Grabs guest entry data (model) */
-include('inc/guest_record.php');
-$entries = get_all_entries(); 
+include('inc/guest_record.php');	
+$entry = new Guest();
+$entries = Guest::get_all_entries(); 
 $err_message = $_REQUEST['err_message'];
 
 /* Page view definitions w/ header include (view)*/
@@ -29,7 +32,7 @@ include('inc/header.php');
 		if(!isset($err_message)) {
 			echo '<p>Sign our guest book please.</p>';
 		} else {
-			echo'<p>' . $_GET["err_message"] . '</p>';
+			echo'<p>' . $err_message . '</p>';
 		}
 	?>
 	<form method="post" action="entry-add.php">
