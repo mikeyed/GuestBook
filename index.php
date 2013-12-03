@@ -10,10 +10,38 @@ if (isset($_GET["id"])) {
 }
 
 /* Grabs guest entry data (model) */
-include('inc/guest_record.php');	
-$entry = new Guest();
-$entries = Guest::get_all_entries(); 
-$err_message = $_REQUEST['err_message'];
+require_once('inc/guest_record.php');	
+$entry_call = new Guest();	
+
+$err_message = $_REQUEST['err_message']; //sets returned error message to variable
+
+$current_page = check_page_call($_GET["pg"]); //checks for valid page call, returns 1 or current page number
+
+//changes any none numerical page call to value, typically 0
+$current_page = intval($current_page);
+
+//calls count function, divides total items into a rounded set of pages
+$total_entries = $entry_call->get_entry_count();
+$entries_per_page = 6;
+$page_total = ceil($total_entries / $entries_per_page); 
+
+normalize_large_page_calls($current_page, $page_total); //sets any large page calls to page total
+
+normalize_small_page_calls($current_page); //sets any page calls smaller than one to root
+
+//determines start and stop of entry calls per page
+$start = (($current_page - 1) * $entries_per_page) + 1;
+$stop = $current_page * $entries_per_page;
+if ($stop > $total_entries) {
+	$stop = $total_entries;
+}
+
+$next = $current_page + 1;
+$prev = $current_page - 1;
+
+//sets entries for current page with entry range function
+$entries = $entry_call->get_entry_range($start,$stop);
+
 
 /* Page view definitions w/ header include (view)*/
 $pageTitle = "Guest Book";
@@ -78,6 +106,13 @@ include('inc/header.php');
 	
 	<!-- Past guest entry display scroll portion -->
 	<article class="scroll">
+		
+		<!-- Loop for links to paginated entries -->
+		<div class="pagination">
+			<?php include('partial/pagination-logic.html.php');?>
+		</div>
+		
+		<!-- Loop through entries using function display -->
 		<ul class="guest_list">
 			<?php 
 			foreach($entries as $entry) { 
