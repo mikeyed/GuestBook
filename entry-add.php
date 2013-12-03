@@ -1,7 +1,7 @@
 <?php
 
 //Connect to Guest database
-require("inc/guest_record.php");
+require_once("inc/guest_record.php");
 
 $name = clean_val($_POST["name"]);
 $email = clean_val($_POST["email"]);
