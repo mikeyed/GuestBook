@@ -533,11 +533,48 @@ header .nav li.think a {
 	padding:2em 0 0 0;
 	}
 	
+/* Pagination submodule definitions*/
+
 .section.page {
 	padding: 2em 0; 
 	min-height:20em;
 	}
+
+.pagination {
+	width:100%;
+	min-height:2em;
+	margin:1em 0 1em 0;
+	}
+
+.pagination ul li {
+	list-style:none;
+	display:block;
+	float:left;
+	}
 	
+.pagination ul li span,
+.pagination ul li a {
+	padding:.5em;
+	margin:0 .25em;
+	}
+
+.pagination ul li span{
+	border:#ba0c38 solid .1em;
+	background-color:#CCC;
+	}
+		
+.pagination ul li a{
+	border:#ba0c38 dotted .1em;
+	background-color:#f0eeed;
+	}
+
+.pagination ul li a:hover {
+	background-color:#CCC;
+	text-decoration:none;
+	}
+	
+/* Guest List submodule definitions */
+
 ul.guest_list {
 	margin: 0 0 0 0; 
 	padding: 0; 
@@ -557,7 +594,7 @@ ul.guest_list li {
 
 ul.guest_list li a {
     text-decoration: none;
-    color: #555;
+    color:#03593B;
 	}
 
 ul.guest_list li a:hover {
@@ -565,14 +602,13 @@ ul.guest_list li a:hover {
 	}
 	
 ul.guest_list li p {
-    color:#03593B;
+	color: #555;
     font-size: .8em;
     min-height:1.5em;
     text-transform: uppercase;
 	}
 	
 ul.guest_list li p + p {
-	color: #1F674D;
     width: auto;
     min-height:1.5em;
     padding: 0 .25em;
