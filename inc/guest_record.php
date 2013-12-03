@@ -57,7 +57,7 @@
 	}
 	
 	/* reviews form submission for errors, omissions, or bots */
-	function validate_entry($name, $email, $comment) {
+	public function validate_entry($name, $email, $comment) {
 		// define variables and set to empty values
 		$name = $email = $comment = "";
 				
@@ -82,7 +82,7 @@
 	} 
 	
 	/* Grabs entries from database as 'entries' variable */
-	function get_all_entries() {
+	public function get_all_entries() {
 	/*
 		$entries = array();
 		$entries[101] = array(
@@ -118,11 +118,28 @@
 		
 		return $entries;
 	}
+
+	public function get_entry_count() {
+		$total_entries = count($this->get_all_entries());
+		return $total_entries;
+	}
+
+	public function get_entry_range($entryStart, $entryStop) {
+		$range = array();
+		$all_entries = $this->get_all_entries();
+		
+		$position = 0;
+		foreach($all_entries as $entry) {
+			$position += 1;
+			if ($position >= $entryStart && $position <= $entryStop) {
+				$range[] = $entry;
+			}
+		}
+		return $range;
+	}
+
 }
 
-function count_return() {
-		
-}
 
 /* formats text for entry display */
 function get_list_view_html($entry) {
@@ -140,10 +157,6 @@ function get_list_view_html($entry) {
 	 
  	return $output;
 }
-
-
-
-
 
 /* cleans form submission values */
 function clean_val($value) {
@@ -189,6 +202,29 @@ function make_excerpt($text, $max_char, $id) {
 		$text = $text.$etc;
 	}
 	return $text;
+}
+
+function check_page_call($get_var) {
+	// checks for page setting, returns to first if none
+	if(empty($_GET["pg"])) {
+		return $current_page = 1;
+		} else { 
+		return $current_page = $_GET["pg"];
+	}
+}
+
+function normalize_large_page_calls($current_page, $page_total) {
+	//page calls higher than last go to last page
+	if ($current_page > $page_total) {
+		header("Location: ./?pg=" . $page_total);
+	}
+}
+
+function normalize_small_page_calls($current_page) {
+	//if page call lower than one, go to root
+	if ($current_page < 1) {
+		header("Location: ./");
+	}
 }
 
 ?>
